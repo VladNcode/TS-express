@@ -1,18 +1,26 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+import { userRouter } from './users/users.js';
 
-const userRouter = express.Router();
+const port = process.env.PORT || 3000;
 
-userRouter.use((req, res, next) => {
-  console.log('users handler');
+const app = express();
+
+app.use((req, res, next) => {
+  console.log('Time', Date.now());
   next();
 });
 
-userRouter.post('/login', (req, res, next) => {
-  res.send('login');
+app.get('/hello', (req, res) => {
+  throw new Error('Error!!!');
 });
 
-userRouter.post('/register', (req, res, next) => {
-  res.send('register');
+app.use('/users', userRouter);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.log(err.message);
+  res.status(401).send(err.message);
 });
 
-export { userRouter };
+app.listen(port, () => {
+  console.log('Listening on port ' + port);
+});
