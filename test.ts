@@ -195,15 +195,131 @@ function bid<T>(sum: T): boolean {
 // Classes
 
 class CoordClass {
+  message = '1';
   lat: number;
   long: number;
+
+  protected test() {
+    if (this.lat > 0) {
+    }
+  }
+
+  computeDistance(lat: number, lon: number): number {
+    return 0;
+  }
 
   constructor(lat: number, long: number) {
     this.lat = lat;
     this.long = long;
+    console.log(this.message);
   }
 }
 
 const point = new CoordClass(0, 1);
 
-console.log(point.lat, point.long);
+class MapLocation extends CoordClass {
+  message = '2';
+  private _name: string;
+  #a: bigint;
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(s: string) {
+    this._name = s + '_cool';
+  }
+
+  override computeDistance(lat: number, lon: number): number {
+    console.log(this._name);
+    this.test();
+    return 0;
+  }
+
+  constructor(lat: number, long: number, name: string) {
+    super(lat, long);
+  }
+}
+
+const loc = new MapLocation(0, 1, 'sad');
+
+// loc.test
+
+interface LoggerService {
+  log: (s: string) => void;
+}
+
+class Logger implements LoggerService {
+  public log(s: string): void {
+    console.log(s);
+  }
+  private error() {}
+
+  private a = 'asddasdas';
+}
+
+const l = new Logger();
+l.log('d');
+// l.error();
+
+class MyClass<T> {
+  a: T;
+}
+
+const j = new MyClass<string>();
+j.a;
+
+abstract class Base {
+  print(s: string): void {
+    console.log(s);
+  }
+
+  abstract error(s: string): void;
+}
+
+class BaseExtended extends Base {
+  error(s: string): void {}
+}
+
+new BaseExtended().print('as');
+
+class Animalistic {
+  name: string;
+}
+
+class Lion {
+  name: string;
+  tail: boolean;
+}
+
+const simba: Animal = new Lion();
+
+// Other types
+let aa = 'Hello';
+
+if (typeof aa === 'string') {
+}
+
+let bb: typeof aa;
+
+type CoordType = {
+  lat: number;
+  lon: number;
+};
+
+type P = keyof CoordType;
+
+let x: P = 'lat';
+
+function loog(a: string | null): void {
+  // if (a === null) {
+  // } else {
+  //   a.toLowerCase();
+  // }
+
+  a!.toLowerCase();
+}
+
+const aaa: bigint = BigInt(100);
+const bbb: symbol = Symbol('sasdasdasd');
+const ccc: symbol = Symbol('sasdasdasd');
