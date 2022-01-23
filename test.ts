@@ -133,3 +133,77 @@ let w = q as number;
 function conn(host: string, protocol: 'http' | 'https') {}
 
 conn(req.host, req.protocol);
+
+// Enum
+
+// enum Direction {
+//   Left = 'left'.length,
+//   Right = 1,
+// }
+
+enum Direction {
+  Left,
+  Right,
+}
+
+Direction.Left;
+
+function moveD(direction: Direction) {
+  switch (direction) {
+    case Direction.Left:
+      return -1;
+    case Direction.Right:
+      return 1;
+  }
+}
+
+function objMod(obj: { Left: number }) {}
+
+objMod(Direction);
+
+const enum Direction2 {
+  Up,
+  Down,
+}
+
+let myDirection = Direction2.Up;
+
+//Generics
+
+interface HasLength {
+  length: number;
+}
+
+function log<T extends HasLength, K>(obj: T, arr: K[]): K[] {
+  obj.length;
+  console.log(obj);
+  return arr;
+}
+
+log<string, number>('asd', [1, 2, 3]);
+
+interface Iuser {
+  name: string;
+  age?: number;
+  bid: <T>(sum: T) => boolean;
+}
+
+function bid<T>(sum: T): boolean {
+  return true;
+}
+
+// Classes
+
+class CoordClass {
+  lat: number;
+  long: number;
+
+  constructor(lat: number, long: number) {
+    this.lat = lat;
+    this.long = long;
+  }
+}
+
+const point = new CoordClass(0, 1);
+
+console.log(point.lat, point.long);
