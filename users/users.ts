@@ -1,18 +1,13 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
-const userRouter = express.Router();
+const router = express.Router();
 
-userRouter.use((req, res, next) => {
-  console.log('users handler');
-  next();
+router.post('/login', (req: Request, res: Response) => {
+  res.status(200).send('Login');
 });
 
-userRouter.post('/login', (req, res, next) => {
-  res.send('login');
+router.post('/register', (req: Request, res: Response) => {
+  res.status(200).send('Register');
 });
 
-userRouter.post('/register', (req, res, next) => {
-  res.send('register');
-});
-
-export { userRouter };
+export { router };

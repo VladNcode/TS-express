@@ -15,6 +15,13 @@
     "express": "^4.17.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.13"
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.23"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "tabWidth": 2,
+    "printWidth": 100
   }
 }
