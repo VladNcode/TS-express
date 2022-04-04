@@ -9,31 +9,31 @@ import { UserController } from './users/users.controller';
 
 @injectable()
 export class App {
-  app: Express;
-  server: Server;
-  port: number;
+	app: Express;
+	server: Server;
+	port: number;
 
-  constructor(
-    @inject(TYPES.ILogger) private logger: ILogger,
-    @inject(TYPES.UserController) private userController: UserController,
-    @inject(TYPES.ExceptionFilter) private exceptionFiler: IExceptionFilter
-  ) {
-    this.app = express();
-    this.port = 3000;
-  }
+	constructor(
+		@inject(TYPES.ILogger) private logger: ILogger,
+		@inject(TYPES.UserController) private userController: UserController,
+		@inject(TYPES.ExceptionFilter) private exceptionFiler: IExceptionFilter,
+	) {
+		this.app = express();
+		this.port = 3000;
+	}
 
-  useRoutes() {
-    this.app.use('/users', this.userController.router);
-  }
+	useRoutes(): void {
+		this.app.use('/users', this.userController.router);
+	}
 
-  useExceptionFilters() {
-    this.app.use(this.exceptionFiler.catch.bind(this.exceptionFiler));
-  }
+	useExceptionFilters(): void {
+		this.app.use(this.exceptionFiler.catch.bind(this.exceptionFiler));
+	}
 
-  public async init() {
-    this.useRoutes();
-    this.useExceptionFilters();
-    this.server = this.app.listen(this.port);
-    this.logger.log(`Listening on ${this.port}...`);
-  }
+	public async init(): Promise<void> {
+		this.useRoutes();
+		this.useExceptionFilters();
+		this.server = this.app.listen(this.port);
+		this.logger.log(`Listening on ${this.port}...`);
+	}
 }
