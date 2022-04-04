@@ -1,11 +1,9 @@
 export class HTTPError extends Error {
-  statusCode: number;
-  context: string | undefined;
-
-  constructor(statusCode: number, message: string, context?: string) {
+  constructor(
+    public statusCode: number,
+    public message: string,
+    public context?: string | undefined
+  ) {
     super(message);
-    this.statusCode = statusCode;
-    this.message = message;
-    this.context = context;
   }
 }

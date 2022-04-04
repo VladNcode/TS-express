@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { inject, injectable } from 'inversify';
 import { ILogger } from '../logger/logger.interface';
 import { IExceptionFilter } from './exception.filter.interface';
@@ -15,7 +15,7 @@ export class ExceptionFilter implements IExceptionFilter {
     this.logger.log('Exception service started!');
   }
 
-  catch(err: Error | HTTPError, req: Request, res: Response) {
+  catch(err: Error | HTTPError, req: Request, res: Response, next: NextFunction) {
     if (err instanceof HTTPError) {
       this.logger.error(`[${err.context}] Error ${err.statusCode}: ${err.message}`);
       res.status(err.statusCode).json({ error: err.message });

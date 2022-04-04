@@ -4,9 +4,10 @@ import { BaseController } from '../common/base.controller';
 import { ILogger } from '../logger/logger.interface';
 import { HTTPError } from '../errors/http-error.class';
 import { TYPES } from '../types';
+import { IUserController } from './users.controller.interface';
 
 @injectable()
-export class UserController extends BaseController {
+export class UserController extends BaseController implements IUserController {
   constructor(@inject(TYPES.ILogger) private loggerService: ILogger) {
     super(loggerService);
 
@@ -21,7 +22,6 @@ export class UserController extends BaseController {
   }
 
   register(req: Request, res: Response) {
-    // this.send(res, 200, 'Register class');
     this.send(res, 200, 'Register class');
   }
 }
