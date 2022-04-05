@@ -5,10 +5,17 @@ import { ILogger } from '../logger/logger.interface';
 import { HTTPError } from '../errors/http-error.class';
 import { TYPES } from '../types';
 import { IUserController } from './users.controller.interface';
+import { UserLoginDto } from './dto/user-login.dto';
+import { UserRegisterDto } from './dto/user-register.dto';
+import { User } from './user.entity';
+import { IUserService } from './user.service.interface';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
-	constructor(@inject(TYPES.ILogger) private loggerService: ILogger) {
+	constructor(
+		@inject(TYPES.ILogger) private loggerService: ILogger,
+		@inject(TYPES.UserService) private userService: IUserService,
+	) {
 		super(loggerService);
 
 		this.bindRouter([
@@ -17,11 +24,21 @@ export class UserController extends BaseController implements IUserController {
 		]);
 	}
 
-	login(req: Request, res: Response, next: NextFunction): void {
+	login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): void {
 		next(new HTTPError(401, 'auth error', 'login'));
 	}
 
-	register(req: Request, res: Response): void {
-		this.send(res, 200, 'Register class');
+	async register(
+		{ body }: Request<{}, {}, UserRegisterDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const result = await this.userService.createUser(body);
+
+		if (!result) {
+			return next(new HTTPError(422, 'User already exists'));
+		}
+
+		this.ok(res, 200, { email: result.email });
 	}
 }
