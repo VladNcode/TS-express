@@ -4,6 +4,7 @@ import { Server } from 'http';
 import { inject, injectable } from 'inversify';
 import { ILogger } from './logger/logger.interface';
 import { TYPES } from './types';
+import { IConfigService } from './config/config.service.interface';
 import { IExceptionFilter } from './errors/exception.filter.interface';
 import { UserController } from './users/users.controller';
 
@@ -17,6 +18,7 @@ export class App {
 		@inject(TYPES.ILogger) private logger: ILogger,
 		@inject(TYPES.UserController) private userController: UserController,
 		@inject(TYPES.ExceptionFilter) private exceptionFiler: IExceptionFilter,
+		@inject(TYPES.ConfigService) private configService: IConfigService,
 	) {
 		this.app = express();
 		this.port = 3000;

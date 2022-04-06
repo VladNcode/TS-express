@@ -12,7 +12,7 @@ export class ExceptionFilter implements IExceptionFilter {
 	}
 
 	serviceLog(): void {
-		this.logger.log('Exception service started!');
+		this.logger.log('[ExceptionFilter] Exception service started!');
 	}
 
 	catch(err: Error | HTTPError, req: Request, res: Response, next: NextFunction): void {

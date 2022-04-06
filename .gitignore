@@ -4,3 +4,4 @@ test.ts
 .idea
 dist
 .clinic
+.env
