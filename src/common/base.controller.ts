@@ -20,7 +20,7 @@ export abstract class BaseController {
 	}
 
 	ok<T>(res: Response, code: number, message: T): ExpressReturnType {
-		return this.send(res, 200, message);
+		return this.send(res, code, message);
 	}
 
 	created(res: Response): ExpressReturnType {

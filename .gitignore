@@ -5,5 +5,8 @@ test.ts
 dist
 .clinic
 .env
+test.env
 prisma/dev.db
 prisma/dev.db-journal
+prisma/testdev.db
+prisma/testdev.db-journal
