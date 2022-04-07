@@ -10,3 +10,4 @@ prisma/dev.db
 prisma/dev.db-journal
 prisma/testdev.db
 prisma/testdev.db-journal
+coverage

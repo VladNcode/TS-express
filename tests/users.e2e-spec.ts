@@ -50,6 +50,7 @@ describe('Users e2e', () => {
 			})
 			.expect(200);
 
+		expect(res.body.token).not.toBeNull();
 		expect(res.body.user.email).toEqual('juancampos@example.net');
 	});
 
